@@ -45,7 +45,7 @@ class PostgresPubSub extends PubSub {
   async connect() {
     // These event listeners must be added prior to calling pg-listen's
     // `connect`, who may emit these events.
-    const connectAndListen = new Promise((resolve, reject) => {
+    const connectedAndListening = new Promise((resolve, reject) => {
       this.pgListen.events.once('connected', () => {
         // confusingly, `pgListen.connect()` will reject if the first connection attempt fails
         // but then it will retry and emit a `connected` event if it later connects
@@ -67,7 +67,7 @@ class PostgresPubSub extends PubSub {
       if (!e.message.includes('ECONNREFUSED')) throw e;
     }
 
-    await Promise.race[connectAndListen, errorThrown];
+    await Promise.race[connectedAndListening, errorThrown];
 
     this.connected = true;
   }
