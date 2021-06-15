@@ -67,7 +67,7 @@ class PostgresPubSub extends PubSub {
       if (!e.message.includes('ECONNREFUSED')) throw e;
     }
 
-    await Promise.race[connectedAndListening, errorThrown];
+    await Promise.race([connectedAndListening, errorThrown]);
 
     this.connected = true;
   }
