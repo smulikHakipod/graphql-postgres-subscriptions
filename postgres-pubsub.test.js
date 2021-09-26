@@ -188,7 +188,7 @@ describe("PostgresPubSub", () => {
     const eventName = "test2";
     const ps = new PostgresPubSub();
     await ps.connect();
-    const iterator = ps.asyncIterator(["test", "test2"]);
+    const iterator = await ps.asyncIteratorPromised(["test", "test2"]);
     const spy = jest.fn();
 
     iterator.next().then(() => {
