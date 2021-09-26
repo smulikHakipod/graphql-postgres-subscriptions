@@ -47,7 +47,7 @@ class PostgresPubSub extends PubSub {
     // `connect`, who may emit these events.
     const connectedAndListening = new Promise((resolve, reject) => {
       this.pgListen.events.once('connected', () => {
-        initTopics(this.triggers).then(resolve, reject);
+        this.initTopics(this.triggers).then(resolve, reject);
       });
     });
 
@@ -119,7 +119,7 @@ class PostgresPubSub extends PubSub {
   * topics can still be empty. 
   */
   async asyncIteratorPromised(triggers) {
-    await initTopics(triggers);
+    await this.initTopics(triggers);
     return eventEmitterAsyncIterator(
       this.pgListen,
       triggers,
