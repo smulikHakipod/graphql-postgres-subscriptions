@@ -119,7 +119,7 @@ class PostgresPubSub extends PubSub {
   * topics can still be empty. 
   */
   async asyncIteratorPromised(triggers) {
-    await this.initTopics(triggers);
+    await this.initTopics(Array.isArray(triggers) ? triggers : [triggers] );
     return eventEmitterAsyncIterator(
       this.pgListen,
       triggers,
